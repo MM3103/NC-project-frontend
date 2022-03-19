@@ -11,7 +11,7 @@ const Accept = () => {
     const orderId = params.id;
 
     function accept() {
-        const response = axios.get('http://localhost:8484/order/acceptedorder/'+orderId,
+        const response = axios.get('http://localhost:8484/order/acceptOrder/'+orderId,
             { headers: {
                     'Content-Type': 'application/json',
                     Authorization: initialized ? `Bearer ${keycloak.token}` : undefined,"Access-Control-Allow-Origin": "*",mode:"cors"
@@ -19,33 +19,42 @@ const Accept = () => {
             }).then( response =>  window.location.assign('http://localhost:3000/acceptOrder') )}
 
     function reject() {
-        axios.get('http://localhost:8484/order/unacceptedorder/'+orderId,
+        axios.get('http://localhost:8484/order/rejectOrder/'+orderId,
             { headers: {
                     'Content-Type': 'application/json',
                     Authorization: initialized ? `Bearer ${keycloak.token}` : undefined,"Access-Control-Allow-Origin": "*",mode:"cors"
                 }
             }).then( response =>  window.location.assign('http://localhost:3000/unacceptOrder') )}
 
-         return (
+
+    if(keycloak.tokenParsed.preferred_username ==="admin") {
+        return (
             <div>
                 <h1 align="center">
                     Do you want to accept order?</h1>
                 <button
                     type="button"
                     className="but2"
-                    onClick={()=>accept()}
+                    onClick={() => accept()}
                 >
                     Accept
                 </button>
                 <button
                     type="button"
                     className="but2"
-                    onClick={()=>reject()}
+                    onClick={() => reject()}
                 >
                     Reject
                 </button>
             </div>
         );
+    }
+    else return (
+        <div>
+            <h1 align="center">
+                You don't have access</h1>
+        </div>
+    );
 };
 
 export default Accept;
