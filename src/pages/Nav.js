@@ -1,9 +1,17 @@
 import React from "react";
 import { useKeycloak } from "@react-keycloak/web";
 import './Nav.css';
+import axios from "axios";
 
 const Nav = () => {
-    const { keycloak } = useKeycloak();
+    const { keycloak,initialized } = useKeycloak();
+
+    function checkInitialized() {
+       return ( initialized ? keycloak.login() : window.location.assign('http://localhost:3000/nt')
+       );
+    }
+
+
 
     return (
         <div>
@@ -24,7 +32,7 @@ const Nav = () => {
                                         <button
                                             type="button"
                                             className="but"
-                                            onClick={() => keycloak.login()}
+                                            onClick={() => checkInitialized()}
                                         >
                                             Login
                                         </button>

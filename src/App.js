@@ -16,6 +16,8 @@ import AcceptOrder from "./pages/OrderAccept";
 import UnacceptOrder from "./pages/OrderUnaccepted";
 import Created from "./pages/Created";
 import UpdateForUser from "./pages/UpdateForUser";
+import NotAnswer from "./pages/NotAnswer";
+import DBNotAnswer from "./pages/DBNotAnswer";
 
 
 
@@ -28,6 +30,15 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route exact path="/" element={<WelcomePage />} />
+                        <Route exact path="/nt" element={<NotAnswer />} />
+                        <Route
+                            path="/ntDB"
+                            element={
+                                <PrivateRoute>
+                                    <DBNotAnswer />
+                                </PrivateRoute>
+                            }
+                        />
                         <Route
                             path="/client"
                             element={
