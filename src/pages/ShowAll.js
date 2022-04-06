@@ -1,6 +1,6 @@
 import React from "react";
 import {useAx} from "./ShowAllERequest";
-import {Table} from "antd";
+import {Spin, Table} from "antd";
 import axios from "axios";
 import {useKeycloak} from "@react-keycloak/web";
 import './Nav.css';
@@ -32,7 +32,17 @@ const ShowAll = () => {
             render(text, record) {
                 return {
                     props: {
-                        style: {background: text === "WAITING" ? "yellow" : (text === "REJECTED" ? "red":"green" )}
+                        style: {background: text === "WAITING" ? "yellow" : (text === "REJECTED" ? "red":(text === "ACCEPTED" ? "green":"blue") )}
+                    },
+                    children: <div>{text}</div>
+                };
+            }
+        },
+        {title: 'Self installation', dataIndex: 'selfInstallation', key: 'selfInstallation',
+            render(bool, record,text) {
+                return {
+                    props: {
+                        st: {text: bool === true ? text="YES":text="NO"}
                     },
                     children: <div>{text}</div>
                 };
@@ -75,16 +85,10 @@ const ShowAll = () => {
         }
     ];
 
-    if (axiosInstance.length !== undefined) {
+    if (typeof (axiosInstance) === "string" || axiosInstance.length === undefined) {
         return (
-            <div>
-                <Table
-                    columns={Columns1}
-                    expandable={{
-                        rowExpandable: record => record.name !== 'Not Expandable',
-                    }}
-                    dataSource={axiosInstance}
-                />
+            <div className="example">
+                <Spin size="large"/>
             </div>
         );
     } else {
@@ -95,7 +99,7 @@ const ShowAll = () => {
                     expandable={{
                         rowExpandable: record => record.name !== 'Not Expandable',
                     }}
-                    dataSource={data1}
+                    dataSource={axiosInstance}
                 />
             </div>
         );

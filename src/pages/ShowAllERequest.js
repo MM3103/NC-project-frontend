@@ -13,7 +13,7 @@ export const useAx = () => {
                 }
         }).then(response => {
            setAxiosInstance(response.data)
-       })
+       }).catch(response => window.location.assign('http://localhost:3000/ntDB'))
 
         return () => {
             setAxiosInstance({ })

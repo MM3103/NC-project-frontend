@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak";
 import { BrowserRouter, Route, Routes} from "react-router-dom";
@@ -16,6 +16,18 @@ import AcceptOrder from "./pages/OrderAccept";
 import UnacceptOrder from "./pages/OrderUnaccepted";
 import Created from "./pages/Created";
 import UpdateForUser from "./pages/UpdateForUser";
+import NotAnswer from "./pages/NotAnswer";
+import DBNotAnswer from "./pages/DBNotAnswer";
+import Citiespage from "./pages/Citiespage";
+import CreateCity from "./pages/CreateCity";
+import UpdateCity from "./pages/UpdateCity";
+import ShowAllCity from "./pages/ShowAllCity";
+import CreateStreet from "./pages/CreateStreet";
+import ShowAllStreets from "./pages/ShowAllStreets";
+import AddCity from "./pages/AddCity";
+import AddStreet from "./pages/AddStreet";
+import UpdateStreet from "./pages/UpdateStreet";
+import Spinner from "react-bootstrap/Spinner";
 
 
 
@@ -28,6 +40,15 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route exact path="/" element={<WelcomePage />} />
+                        <Route exact path="/nt" element={<NotAnswer />} />
+                        <Route
+                            path="/ntDB"
+                            element={
+                                <PrivateRoute>
+                                    <DBNotAnswer />
+                                </PrivateRoute>
+                            }
+                        />
                         <Route
                             path="/client"
                             element={
@@ -37,10 +58,58 @@ function App() {
                             }
                         />
                         <Route
+                            path="/citiespage"
+                            element={
+                                <PrivateRoute>
+                                    <Citiespage />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/createCity"
+                            element={
+                                <PrivateRoute>
+                                    <CreateCity />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/updateCity/:id"
+                            element={
+                                <PrivateRoute>
+                                    <UpdateCity />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/showAllCities"
+                            element={
+                                <PrivateRoute>
+                                        <ShowAllCity />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/showAllStreets"
+                            element={
+                                <PrivateRoute>
+                                    <ShowAllStreets />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
                             path="/createNewOrder"
                             element={
                                 <PrivateRoute>
                                     <CreateNewOrder />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/createStreet"
+                            element={
+                                <PrivateRoute>
+                                    <CreateStreet />
                                 </PrivateRoute>
                             }
                         />
@@ -105,6 +174,30 @@ function App() {
                             element={
                                 <PrivateRoute>
                                     <Created />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/addCity"
+                            element={
+                                <PrivateRoute>
+                                    <AddCity />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/addStreet"
+                            element={
+                                <PrivateRoute>
+                                    <AddStreet />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/updateStreet/:id"
+                            element={
+                                <PrivateRoute>
+                                    <UpdateStreet />
                                 </PrivateRoute>
                             }
                         />
