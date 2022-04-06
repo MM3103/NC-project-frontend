@@ -16,7 +16,7 @@ function handleSubmit() {
                     "Access-Control-Allow-Origin": "*",
                     mode: "cors"
                 }
-            }).then(response => window.location.assign('http://localhost:3000/created'))
+            }).then(response => window.location.assign('http://localhost:3000/created')).catch(response =>window.location.assign('http://localhost:3000/ntDB'))
 
 }
 
