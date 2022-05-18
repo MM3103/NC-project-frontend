@@ -1,13 +1,13 @@
 import React from "react";
 
-const DBNotAnswer = () => {
+const AddCity = () => {
 
     return (
         <div>
             <h1 align="center">
-                Sorry!!! Please try again later.</h1>
+                City successfully added</h1>
         </div>
     );
 
 };
-export default DBNotAnswer;
+export default AddCity;

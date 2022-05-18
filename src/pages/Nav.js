@@ -12,46 +12,132 @@ const Nav = () => {
     }
 
 
-
-    return (
-        <div>
-            <div className="mid">
+    if (keycloak.authenticated) {
+        if (keycloak.tokenParsed.preferred_username ==="admin") {
+            return (
+                <div>
+                    <div className="mid">
                         <div className="navbar">
-                                <li>
-                                    <a className="seven" href="/">
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="seven" href="/client">
-                                        Orders
-                                    </a>
-                                </li>
+                            <li>
+                                <a className="seven" href="/">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a className="seven" href="/client">
+                                    Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a className="seven" href="/citiespage">
+                                    City
+                                </a>
+                            </li>
                             <div className="right">
-                                    {!keycloak.authenticated && (
-                                        <button
-                                            type="button"
-                                            className="but"
-                                            onClick={() => checkInitialized()}
-                                        >
-                                            Login
-                                        </button>
-                                    )}
+                                {!keycloak.authenticated && (
+                                    <button
+                                        type="button"
+                                        className="but"
+                                        onClick={() => checkInitialized()}
+                                    >
+                                        Login
+                                    </button>
+                                )}
 
-                                    {!!keycloak.authenticated && (
-                                        <button
-                                            type="button"
-                                            className="but"
-                                            onClick={() => keycloak.logout()}
-                                        >
-                                            Logout ({keycloak.tokenParsed.preferred_username})
-                                        </button>
-                                    )}
+                                {!!keycloak.authenticated && (
+                                    <button
+                                        type="button"
+                                        className="but"
+                                        onClick={() => keycloak.logout()}
+                                    >
+                                        Logout ({keycloak.tokenParsed.preferred_username})
+                                    </button>
+                                )}
                             </div>
                         </div>
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div>
+                    <div className="mid">
+                        <div className="navbar">
+                            <li>
+                                <a className="seven" href="/">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a className="seven" href="/client">
+                                    Orders
+                                </a>
+                            </li>
+                            <div className="right">
+                                {!keycloak.authenticated && (
+                                    <button
+                                        type="button"
+                                        className="but"
+                                        onClick={() => checkInitialized()}
+                                    >
+                                        Login
+                                    </button>
+                                )}
+
+                                {!!keycloak.authenticated && (
+                                    <button
+                                        type="button"
+                                        className="but"
+                                        onClick={() => keycloak.logout()}
+                                    >
+                                        Logout ({keycloak.tokenParsed.preferred_username})
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+    }
+    else {
+        return (
+            <div>
+                <div className="mid">
+                    <div className="navbar">
+                        <li>
+                            <a className="seven" href="/">
+                                Home
+                            </a>
+                        </li>
+                        <div className="right">
+                            {!keycloak.authenticated && (
+                                <button
+                                    type="button"
+                                    className="but"
+                                    onClick={() => checkInitialized()}
+                                >
+                                    Login
+                                </button>
+                            )}
+
+                            {!!keycloak.authenticated && (
+                                <button
+                                    type="button"
+                                    className="but"
+                                    onClick={() => keycloak.logout()}
+                                >
+                                    Logout ({keycloak.tokenParsed.preferred_username})
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Nav;

@@ -1,6 +1,7 @@
 import React from "react";
 import {useAx} from "./ShowUserOrdersRequest";
-import {Table} from "antd";
+import {Spin, Table} from "antd";
+import './Loading.css';
 import axios from "axios";
 import {useKeycloak} from "@react-keycloak/web";
 
@@ -30,7 +31,17 @@ const ShowUserOrders = () => {
             render(text, record) {
                 return {
                     props: {
-                        style: {background: text === "WAITING" ? "yellow" : (text === "REJECTED" ? "red":"green" )}
+                        style:  {background: text === "WAITING" ? "yellow" : (text === "REJECTED" ? "red":(text === "ACCEPTED" ? "green":"blue") )}
+                    },
+                    children: <div>{text}</div>
+                };
+            }
+        },
+        {title: 'Self installation', dataIndex: 'selfInstallation', key: 'selfInstallation',
+            render(bool, record,text) {
+                return {
+                    props: {
+                        st: {text: bool === true ? text="YES":text="NO"}
                     },
                     children: <div>{text}</div>
                 };
@@ -69,16 +80,10 @@ const ShowUserOrders = () => {
             ),
         }
     ];
-    if (axiosInstance.length !== undefined) {
+    if (axiosInstance.length === undefined || typeof (axiosInstance) === "string") {
         return (
-            <div>
-                <Table
-                    columns={columns2}
-                    expandable={{
-                        rowExpandable: record => record.name !== 'Not Expandable',
-                    }}
-                    dataSource={axiosInstance}
-                />
+            <div className="example">
+                <Spin size="large"/>
             </div>
         );
     } else {
@@ -89,7 +94,7 @@ const ShowUserOrders = () => {
                     expandable={{
                         rowExpandable: record => record.name !== 'Not Expandable',
                     }}
-                    dataSource={data1}
+                    dataSource={axiosInstance}
                 />
             </div>
         );
